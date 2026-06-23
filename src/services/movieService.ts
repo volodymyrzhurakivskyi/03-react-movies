@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import { TmdbResponse } from '../types/movie';
-
+import axios from 'axios';
+import type { AxiosResponse } from 'axios';
+import { type TmdbResponse } from '../types/movie';
 // Створюємо інстанс axios з базовими налаштуваннями
 const movieInstance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
