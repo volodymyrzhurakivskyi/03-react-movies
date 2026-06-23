@@ -1,7 +1,15 @@
 import axios from 'axios';
 import type { AxiosResponse } from 'axios';
-import { type TmdbResponse } from '../types/movie';
-// Створюємо інстанс axios з базовими налаштуваннями
+import { type Movie } from '../types/movie';
+
+// Переносимо інтерфейс відповіді сюди
+interface TmdbResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
+
 const movieInstance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   headers: {
@@ -10,7 +18,6 @@ const movieInstance = axios.create({
   },
 });
 
-// Функція для отримання популярних фільмів (приклад базового запиту)
 export const fetchTrendingMovies = async (): Promise<TmdbResponse> => {
   const response: AxiosResponse<TmdbResponse> = await movieInstance.get(
     '/trending/movie/day'
@@ -18,7 +25,6 @@ export const fetchTrendingMovies = async (): Promise<TmdbResponse> => {
   return response.data;
 };
 
-// Функція для пошуку фільмів за ключовим словом
 export const searchMovies = async (query: string): Promise<TmdbResponse> => {
   const response: AxiosResponse<TmdbResponse> = await movieInstance.get(
     '/search/movie',
